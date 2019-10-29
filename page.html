@@ -36,7 +36,7 @@
             let head = null//Primeiro nó
             let length = 0
 
-            const newNo = () => {
+            const newNo = () => {//nó
 
                 return{
                     value,
@@ -51,9 +51,12 @@
                     length++
                 }
                 let no = head
-                while(no.next){
+                while(no.next){// enquanto não chegar no "null" que é o final, ele pega o proximo
                     no = no.next
                 }
+                no.next = newNo(value)
+                length++
+                return node.next
             }
 
             return{

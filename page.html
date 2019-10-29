@@ -12,22 +12,68 @@
 
     <h2>Estoque:</h2>
 
-    <input type="button" value="Verificar" onclick="Verificar()" style="width:90;height:25" id="ver"><br><br>
+    <input type="submit" value="Verificar" onclick="Verificar()" style="width:90;height:25"><br><br>
+    <input type="text"id="verText"><br><br>
+    
     <input type="button" value="Adionar" onclick="Adionar()" style="width:90;height:25" id="adi"><br><br>
+    <input type="text"><br><br>    
+    <input type="button" value="Remover" onclick="Remover()" style="width:90;height:25" id="rem"><br><br>
     <input type="text"><br><br>
     <input type="button" value="Buscar" onclick="Buscar()" style="width:90;height:25" id="bus"><br><br>
     <input type="text"><br><br>
-    <input type="button" value="Remover" onclick="Remover()" style="width:90;height:25" id="rem"><br><br>
-    <input type="text"><br><br>
+    <h2>Resultado:</h2>
+    <input type="text" style="height:100" id="imprime"><br><br>
 
     <script>
 
         var aux_ver, aux_bus, aux_rem, aux_adi
 
 
-        function Verificar() {
+        //arrow funcition
+
+        function LED(){
+
+            let head = null//Primeiro nó
+            let length = 0
+
+            const newNo = () => {
+
+                return{
+                    value,
+                    next: null
+                }
+            } 
+
+            const add = (value) =>{
+
+                if(!head){//Se o primeiro nó não for verdadeiro, vamos passar 
+                    head = newNo(value)
+                    length++
+                }
+                let no = head
+                while(no.next){
+                    no = no.next
+                }
+            }
+
+            return{
+                length: () => length,
+                add: (value) => add(value)
+            }
+        }
+        //adicionar na led
+        const list = LED()
+        list.add(1)
+        //inicialmente a lista estara com 0 pois estara vazia 
+
+
+
+
+
+        function Verificar() {// Pode se tornar "Busca"
             
-            aux_ver = document.getElementById('ver').value
+            aux_ver = document.getElementById('verText').value 
+            document.getElementById('imprime').value = aux_ver;
 
         }
         function Buscar() {

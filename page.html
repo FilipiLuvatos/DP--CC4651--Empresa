@@ -93,12 +93,51 @@
         //adicionar na led
         const list = LED()
         list.add(1)
+
+        //removendo        
         let node = list.getByValue(3)
         list.remove(node)// neste caso eu estou pegando e removendo o nó 3
         //inicialmente a lista estara com 0 pois estara vazia 
 
 
 
+
+        const Pilha = () => {
+
+            const data = []
+            let topo = -1
+
+            const push = (value) => {
+                let i
+                data[i] = value
+            }
+            const pop = () => {
+                
+                if (topo < 0){
+                    return false
+                }else{
+                    const itemRe = data[topo]
+
+                    data.splice(topo, 1)
+                    topo--
+
+                    return itemRe
+
+                }
+            }
+
+            return {
+
+                push, pop
+
+            }
+        }
+
+        const stack = Pilha()
+        stack.push(1) //Adicionando
+        stack.push(2)
+
+        stack.pop()//Removendo
 
 
 

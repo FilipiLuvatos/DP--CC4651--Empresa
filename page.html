@@ -13,10 +13,10 @@
     <h2>Estoque:</h2>
 
     <input type="submit" value="Verificar" onclick="Verificar()" style="width:90;height:25"><br><br>
-    <input type="text"id="verText"><br><br>
-    
+    <input type="text" id="verText"><br><br>
+
     <input type="button" value="Adionar" onclick="Adionar()" style="width:90;height:25" id="adi"><br><br>
-    <input type="text"><br><br>    
+    <input type="text"><br><br>
     <input type="button" value="Remover" onclick="Remover()" style="width:90;height:25" id="rem"><br><br>
     <input type="text"><br><br>
     <input type="button" value="Buscar" onclick="Buscar()" style="width:90;height:25" id="bus"><br><br>
@@ -30,52 +30,83 @@
 
 
         //arrow funcition
-
-        function LED(){
+        //O(n)
+        function LED() {
 
             let head = null//Primeiro nó
             let length = 0
 
-            const newNo = () => {//nó
+            const Node = (value) => {//nó
 
-                return{
+                return {
                     value,
                     next: null
                 }
-            } 
+            }
 
-            const add = (value) =>{
+            const add = (value) => {
 
-                if(!head){//Se o primeiro nó não for verdadeiro, vamos passar 
-                    head = newNo(value)
+                if (!head) {//Se o primeiro nó não for verdadeiro, vamos passar 
+                    head = Node(value)
                     length++
                 }
-                let no = head
-                while(no.next){// enquanto não chegar no "null" que é o final, ele pega o proximo
-                    no = no.next
+                let node = head
+                while (node.next) {// enquanto não chegar no "null" que é o final, ele pega o proximo
+                    node = node.next
                 }
-                no.next = newNo(value)
+                node.next = Node(value)
                 length++
                 return node.next
             }
 
-            return{
-                length: () => length,
-                add: (value) => add(value)
+            const remove = (node) => {
+
+                if (length == 0) return false//lista vazia
+
+                if (node == head) {//retira o primeiro
+
+                    head = node.next
+
+                    return true
+                }
+
+                let currentNode = head
+
+                while (currentNode.next && currentNode.next != node) {
+
+                    currentNode = currentNode.next
+
+                }
+                currentNode.next = node.next
+
+                return true
             }
+
+            return {
+                length: () => length,
+                add: (value) => add(value),
+                remove: (node) => remove(node)
+            }
+
+
         }
         //adicionar na led
         const list = LED()
         list.add(1)
+        let node = list.getByValue(3)
+        list.remove(node)// neste caso eu estou pegando e removendo o nó 3
         //inicialmente a lista estara com 0 pois estara vazia 
 
 
 
 
 
+
+
+
         function Verificar() {// Pode se tornar "Busca"
-            
-            aux_ver = document.getElementById('verText').value 
+
+            aux_ver = document.getElementById('verText').value
             document.getElementById('imprime').value = aux_ver;
 
         }

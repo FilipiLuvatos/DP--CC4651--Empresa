@@ -34,6 +34,7 @@
         function LED() {
 
             let head = null//Primeiro nó
+            let tail = null//Fim da Lista
             let length = 0
 
             const Node = (value) => {//nó
@@ -43,7 +44,6 @@
                     next: null
                 }
             }
-
 
             const add = (value) => {
 
@@ -62,11 +62,38 @@
 
             }
 
+            const RetornaValor = (value) => {
+
+                let node = head
+
+                if (length == 0) {
+
+                    return null
+
+                } else if (node.value == value) {
+
+                    return node// .value retornara o valor e apenas node retornara o nó em si
+                }
+
+                while (node.next) {
+                    node = node.next
+
+                    if (node.value == value) {
+                        return node
+                    }
+                }
+                return null
+
+            }
+
+
+
+
             const remove = (node) => {
 
                 if (length == 0) return false//lista vazia
 
-                if (node == head) {//retira o primeiro
+                else if (node == head) {//retira o primeiro
 
                     head = node.next
 
@@ -88,19 +115,27 @@
             return {
                 length: () => length,
                 add: (value) => add(value),
-                remove: (node) => remove(node)
+                print: () => console.log(head),
+                remove: (node) => remove(node),
+                RetornaValor: (value) => RetornaValor(value)
             }
 
 
         }
-        //adicionar na led
         const list = LED()
-        list.add(1)
+        list.add(2)
+        list.add(3)
+        list.add(5)
 
-        //removendo        
-        let node = list.getByValue(3)
-        list.remove(node)// neste caso eu estou pegando e removendo o nó 3
-        //inicialmente a lista estara com 0 pois estara vazia 
+        list.print()
+        let node = list.RetornaValor(2)
+        list.remove(node)
+        list.print()
+        //console.log(list.RetornaValor(0))
+        //null = não encontrado
+
+        //list.remove(node)
+
 
 
 

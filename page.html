@@ -108,14 +108,14 @@
             let topo = -1
 
             const push = (value) => {
-                let i
-                data[i] = value
+                topo++
+                data[topo] = value
             }
             const pop = () => {
-                
-                if (topo < 0){
+
+                if (topo < 0) {
                     return false
-                }else{
+                } else {
                     const itemRe = data[topo]
 
                     data.splice(topo, 1)
@@ -125,19 +125,61 @@
 
                 }
             }
-
+            const print = () => console.log(data)
             return {
 
-                push, pop
+                push, pop, print
 
             }
         }
 
         const stack = Pilha()
-        stack.push(1) //Adicionando
-        stack.push(2)
 
-        stack.pop()//Removendo
+        //stack.push(1)
+        //stack.push(2)
+        //stack.push(3)
+
+        //stack.pop()
+        //stack.print()
+
+        const Fila = () => {
+
+            const data = []
+
+            const add = (value) => {
+
+                data.unshift(value)
+
+            }
+
+            const remove = () => {
+                if (data.length == 0) {
+                    return -1
+                }
+                const value = data[data.length - 1]
+                data.splice(data.length - 1, 1)
+                return value
+            }
+            const print = () => console.log(data)
+            return {
+                add,
+                remove,
+                print
+            }
+
+        }
+
+        const fila2 = Fila()
+        //fila2.add(1)
+        //fila2.add(2)
+        //fila2.add(3)
+        //fila2.add(4)
+
+        //fila2.print()
+
+        //fila2.remove()
+
+        //fila2.print()
 
 
 

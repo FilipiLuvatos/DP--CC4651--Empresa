@@ -44,19 +44,22 @@
                 }
             }
 
+
             const add = (value) => {
 
                 if (!head) {//Se o primeiro nó não for verdadeiro, vamos passar 
                     head = Node(value)
+                    tail = head
                     length++
+                    return head
                 }
-                let node = head
-                while (node.next) {// enquanto não chegar no "null" que é o final, ele pega o proximo
-                    node = node.next
-                }
-                node.next = Node(value)
-                length++
-                return node.next
+
+                let node = Node(value)
+                tail.next = node
+                tail = node
+                return node
+
+
             }
 
             const remove = (node) => {

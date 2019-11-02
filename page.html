@@ -239,6 +239,18 @@
         insert(arvore, 9)
         console.log(arvore)
 
+        function search(tree, value) {
+
+            if (!tree.value || tree.value == value) {
+                return tree.value
+            }
+            else if (value < tree.value) {
+
+                return search(tree.left, value)
+            }
+            return search(tree.rigth, value)
+        }
+        //console.log(search( arvore, 14))
 
         function Verificar() {// Pode se tornar "Busca"
 

@@ -24,240 +24,256 @@
     <h2>Resultado:</h2>
     <input type="text" style="height:100" id="imprime"><br><br>
 
+
+
     <script>
 
         const xlsx = require('xlsx')
         const fs = require('fs')
 
+        var nome = './Clientes.xlsx'
+
+        var fr = xlsx.readFile(nome);
+        var aux = fr.Sheets['Plan1'];
+
+        var range = XLSX.utils.decode_range(aux['!ref']);
+        range.s.r = 0;
+        aux['!ref'] = XLSX.utils.encode_range(range);
+
+        var arrayClientes = XLSX.utils.sheet_to_json(aux, { header: ["Nome", "Sobrenome", "Idade", "Sexo", "Endereco", "Numero", "Cidade"], defval: true });
+
+        for (let i = 1; i < arrayClientes.length; i++) {
 
 
-        var aux_ver, aux_bus, aux_rem, aux_adi
+            var arrayClientes2 = arrayClientes[i]
+           console.log(arrayClientes2)
+        }
 
         /************************************************************************************************************/
-
-        function LED() {
-
-            let head = null//Primeiro nó
-            let tail = null//Fim da Lista
-            let length = 0
-
-            const Node = (value) => {//nó
-
-                return {
-                    value,
-                    next: null
-                }
-            }
-
-            const add = (value) => {
-
-                if (!head) {//Se o primeiro nó não for verdadeiro, vamos passar 
-                    head = Node(value)
-                    tail = head
-                    length++
-                    return head
-                }
-
-                let node = Node(value)
-                tail.next = node
-                tail = node
-                return node
-
-
-            }
-
-            const RetornaValor = (value) => {
-
-                let node = head
-
-                if (length == 0) {
-
-                    return null
-
-                } else if (node.value == value) {
-
-                    return node// .value retornara o valor e apenas node retornara o nó em si
-                }
-
-                while (node.next) {
-                    node = node.next
-
-                    if (node.value == value) {
+        
+                function LED() {//Estoque
+        
+                    let head = null//Primeiro nó
+                    let tail = null//Fim da Lista
+                    let length = 0
+        
+                    const Node = (value) => {//nó
+        
+                        return {
+                            value,
+                            next: null
+                        }
+                    }
+        
+                    const add = (value) => {
+        
+                        if (!head) {//Se o primeiro nó não for verdadeiro, vamos passar 
+                            head = Node(value)
+                            tail = head
+                            length++
+                            return head
+                        }
+        
+                        let node = Node(value)
+                        tail.next = node
+                        tail = node
                         return node
+        
+        
+                    }
+        
+                    const RetornaValor = (value) => {
+        
+                        let node = head
+        
+                        if (length == 0) {
+        
+                            return null
+        
+                        } else if (node.value == value) {
+        
+                            return node// .value retornara o valor e apenas node retornara o nó em si
+                        }
+        
+                        while (node.next) {
+                            node = node.next
+        
+                            if (node.value == value) {
+                                return node
+                            }
+                        }
+                        return null
+        
+                    }
+        
+                    const remove = (node) => {
+        
+                        if (length == 0) return false//lista vazia
+        
+                        else if (node == head) {//retira o primeiro
+        
+                            head = node.next
+        
+                            return true
+                        }
+        
+                        let currentNode = head
+        
+                        while (currentNode.next && currentNode.next != node) {
+        
+                            currentNode = currentNode.next
+        
+                        }
+                        currentNode.next = node.next
+        
+                        return true
+                    }
+        
+                    return {
+                        length: () => length,
+                        add: (value) => add(value),
+                        print: () => console.log(head),
+                        remove: (node) => remove(node),
+                        RetornaValor: (value) => RetornaValor(value)
+                    }
+        
+        
+                }
+                const list = LED()
+                list.add(2)
+                list.add(3)
+                list.add(5)
+        
+                list.print()
+                let node = list.RetornaValor(2)
+                list.remove(node)
+                list.print()
+                //console.log(list.RetornaValor(0))
+                //null = não encontrado
+        
+                //list.remove(node)
+        
+                /************************************************************************************************************/
+        
+                const Pilha = () => {//Verificador
+        
+                    const data = []
+                    let topo = -1
+        
+                    const push = (value) => {
+                        topo++
+                        data[topo] = value
+                    }
+                    const pop = () => {
+        
+                        if (topo < 0) {
+                            return false
+                        } else {
+                            const itemRe = data[topo]
+        
+                            data.splice(topo, 1)
+                            topo--
+        
+                            return itemRe
+        
+                        }
+                    }
+                    const print = () => console.log(data)
+                    return {
+        
+                        push, pop, print
+        
                     }
                 }
-                return null
-
-            }
-
-            const remove = (node) => {
-
-                if (length == 0) return false//lista vazia
-
-                else if (node == head) {//retira o primeiro
-
-                    head = node.next
-
-                    return true
+        
+                const stack = Pilha()
+        
+                //stack.push(1)
+                //stack.push(2)
+                //stack.push(3)
+        
+                //stack.pop()
+                //stack.print()
+        
+                /************************************************************************************************************/
+        
+                const Fila = () => {//Pedidos
+        
+                    const data = []
+        
+                    const add = (value) => {
+        
+                        data.unshift(value)
+        
+                    }
+        
+                    const remove = () => {
+                        if (data.length == 0) {
+                            return -1
+                        }
+                        const value = data[data.length - 1]
+                        data.splice(data.length - 1, 1)
+                        return value
+                    }
+                    const print = () => console.log(data)
+                    return {
+                        add,
+                        remove,
+                        print
+                    }
+        
                 }
-
-                let currentNode = head
-
-                while (currentNode.next && currentNode.next != node) {
-
-                    currentNode = currentNode.next
-
+        
+                const fila2 = Fila()
+                //fila2.add(1)
+                //fila2.add(2)
+                //fila2.add(3)
+                //fila2.add(4)
+        
+                //fila2.print()
+        
+                //fila2.remove()
+        
+                //fila2.print()
+        
+                /************************************************************************************************************/
+        
+                const arvore = {}//Clientes
+        
+                function insert(tree, value) {
+        
+                    if (tree.value) {
+                        if (value > tree.value) {
+                            insert(tree.rigth, value)
+                        } else {
+                            insert(tree.left, value)
+                        }
+                    } else {
+                        tree.value = value
+                        tree.rigth = {}
+                        tree.left = {}
+                    }
                 }
-                currentNode.next = node.next
-
-                return true
-            }
-
-            return {
-                length: () => length,
-                add: (value) => add(value),
-                print: () => console.log(head),
-                remove: (node) => remove(node),
-                RetornaValor: (value) => RetornaValor(value)
-            }
-
-
-        }
-        const list = LED()
-        list.add(2)
-        list.add(3)
-        list.add(5)
-
-        list.print()
-        let node = list.RetornaValor(2)
-        list.remove(node)
-        list.print()
-        //console.log(list.RetornaValor(0))
-        //null = não encontrado
-
-        //list.remove(node)
-
-        /************************************************************************************************************/
-
-        const Pilha = () => {
-
-            const data = []
-            let topo = -1
-
-            const push = (value) => {
-                topo++
-                data[topo] = value
-            }
-            const pop = () => {
-
-                if (topo < 0) {
-                    return false
-                } else {
-                    const itemRe = data[topo]
-
-                    data.splice(topo, 1)
-                    topo--
-
-                    return itemRe
-
+        
+                insert(arvore, 10)
+                insert(arvore, 11)
+                insert(arvore, 9)
+                console.log(arvore)
+        
+                function search(tree, value) {
+        
+                    if (!tree.value || tree.value == value) {
+                        return tree.value
+                    }
+                    else if (value < tree.value) {
+        
+                        return search(tree.left, value)
+                    }
+                    return search(tree.rigth, value)
                 }
-            }
-            const print = () => console.log(data)
-            return {
-
-                push, pop, print
-
-            }
-        }
-
-        const stack = Pilha()
-
-        //stack.push(1)
-        //stack.push(2)
-        //stack.push(3)
-
-        //stack.pop()
-        //stack.print()
-
-        /************************************************************************************************************/
-
-        const Fila = () => {
-
-            const data = []
-
-            const add = (value) => {
-
-                data.unshift(value)
-
-            }
-
-            const remove = () => {
-                if (data.length == 0) {
-                    return -1
-                }
-                const value = data[data.length - 1]
-                data.splice(data.length - 1, 1)
-                return value
-            }
-            const print = () => console.log(data)
-            return {
-                add,
-                remove,
-                print
-            }
-
-        }
-
-        const fila2 = Fila()
-        //fila2.add(1)
-        //fila2.add(2)
-        //fila2.add(3)
-        //fila2.add(4)
-
-        //fila2.print()
-
-        //fila2.remove()
-
-        //fila2.print()
-
-        /************************************************************************************************************/
-
-        const arvore = {}
-
-        function insert(tree, value) {
-
-            if (tree.value) {
-                if (value > tree.value) {
-                    insert(tree.rigth, value)
-                } else {
-                    insert(tree.left, value)
-                }
-            } else {
-                tree.value = value
-                tree.rigth = {}
-                tree.left = {}
-            }
-        }
-
-        insert(arvore, 10)
-        insert(arvore, 11)
-        insert(arvore, 9)
-        console.log(arvore)
-
-        function search(tree, value) {
-
-            if (!tree.value || tree.value == value) {
-                return tree.value
-            }
-            else if (value < tree.value) {
-
-                return search(tree.left, value)
-            }
-            return search(tree.rigth, value)
-        }
-        //console.log(search( arvore, 14))
-
-        /************************************************************************************************************/
+                //console.log(search( arvore, 14))
+        
+                /************************************************************************************************************/
 
         function Verificar() {// Pode se tornar "Busca"
 

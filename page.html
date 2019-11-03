@@ -26,11 +26,15 @@
 
     <script>
 
+        const xlsx = require('xlsx')
+        const fs = require('fs')
+
+
+
         var aux_ver, aux_bus, aux_rem, aux_adi
 
+        /************************************************************************************************************/
 
-        //arrow funcition
-        //O(n)
         function LED() {
 
             let head = null//Primeiro nó
@@ -133,9 +137,7 @@
 
         //list.remove(node)
 
-
-
-
+        /************************************************************************************************************/
 
         const Pilha = () => {
 
@@ -177,6 +179,8 @@
         //stack.pop()
         //stack.print()
 
+        /************************************************************************************************************/
+
         const Fila = () => {
 
             const data = []
@@ -216,6 +220,7 @@
 
         //fila2.print()
 
+        /************************************************************************************************************/
 
         const arvore = {}
 
@@ -252,21 +257,15 @@
         }
         //console.log(search( arvore, 14))
 
+        /************************************************************************************************************/
+
         function Verificar() {// Pode se tornar "Busca"
 
             aux_ver = document.getElementById('verText').value
             document.getElementById('imprime').value = aux_ver;
 
         }
-        function Buscar() {
 
-        }
-        function Remover() {
-
-        }
-        function Adionar() {
-
-        }
 
     </script>
 

@@ -319,29 +319,48 @@ const stack = Pilha()
 
 /************************************************************************************************************/
 
+var Vendas = []
+var Vendas2 = []
+var Vendas3 = []
 
+var nome = './Vendas.xlsx'
+var fr = xlsx.readFile(nome);
+var aux = fr.Sheets['Plan1'];
+var range = xlsx.utils.decode_range(aux['!ref']);
+range.s.r = 0;
+aux['!ref'] = xlsx.utils.encode_range(range);
+var arrayVendas = xlsx.utils.sheet_to_json(aux, { header: ["Codigo", "Nome", "Produto", "Quantidade", "Total"], defval: true });
+
+for (i = 1; i < arrayVendas.length; i++) {
+    let push = arrayVendas[i];
+    let push2 = arrayVendas[i].Codigo
+    Vendas.push(push)// Estoque Original
+    Vendas2.push(push2) // Estoque Aux Number
+}
+
+console.log(Vendas)
 const Fila = () => {//Pedidos
-    const data = []
+
     const add = (value) => {
-        data.unshift(value)
+        Vendas.unshift(value)
     }
     const remove = () => {
-        if (data.length == 0) {
+        if (Vendas.length == 0) {
             return -1
         }
-        const value = data[data.length - 1]
-        data.splice(data.length - 1, 1)
+        const value = Vendas[Vendas.length - 1]
+        Vendas.splice(Vendas.length - 1, 1)
         return value
     }
-    const print = () => console.log(data)
+    const print = () => console.log(Vendas)
     return {
         add,
         remove,
         print
     }
 }
-const fila2 = Fila()
-//fila2.add(1)
+
+var fila2 = Fila()
 //fila2.add(2)
 //fila2.add(3)
 //fila2.add(4)
@@ -349,7 +368,7 @@ const fila2 = Fila()
 //fila2.remove()
 
 
-/*function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
+function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
 
     var FilaFila = {
         Codigo: var_codigo,
@@ -359,11 +378,25 @@ const fila2 = Fila()
         Total: var_total
 
     }
+    
     fila2.add(FilaFila)
+    fila2.print()
+ 
+    Vendas.push(FilaFila)
+    var ws_export = xlsx.utils.json_to_sheet(Vendas)
+    var wb_export = xlsx.utils.book_new()
+    xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
+    xlsx.writeFile(wb_export, './Vendas.xlsx')
 
-    console.log("[Adicionado com Sucesso]")
 
-}*/
+}
+function removeFila(){
+    fila2.remove()
+    var ws_export = xlsx.utils.json_to_sheet(Vendas)
+    var wb_export = xlsx.utils.book_new()
+    xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
+    xlsx.writeFile(wb_export, './Vendas.xlsx')
+}
 
 
 
@@ -470,7 +503,7 @@ function filtra1(opc1) {//Estoque
         let var_qtd = readlineSync.question('Digite a quantidade do produto: ');
         let var_preco = readlineSync.question('Digite o preco do produto: ');
         let var_tamanho = readlineSync.question('Digite o tamanho do produto: ');
-        console.log("[Produto adicionado com sucesso!]")
+        console.log("[Produto adicionado com sucesso!!]")
 
         more(var_codigo, var_produto, var_qtd, var_preco, var_tamanho)
 
@@ -512,7 +545,7 @@ function filtra2(opc2) {//Clientes
         let var_city = readlineSync.question('Digite a cidade: ');
 
         moreCli(var_codigo, var_nome, var_sob, var_idade, var_sexo, var_end, var_number, var_city)
-        console.log("[Adicionado com sucesso!]")
+        console.log("[Adicionado com sucesso!!!]")
 
 
     } else if (opc2 == 3) {//Remover
@@ -539,13 +572,13 @@ function filtra2(opc2) {//Clientes
 
 function filtra3(opc3) {
 
-    if (opc2 == 1) {//Exibir Vendas
+    if (opc3 == 1) {//Exibir Vendas
 
         fila2.print()
 
 
 
-    } else if (opc2 == 2) {//Adicionar
+    } else if (opc3 == 2) {//Adicionar
 
         let var_codigo = readlineSync.question('Digite um coidgo para a  Venda: ');
         let var_nome = readlineSync.question('Digite o nome do CLiente: ');
@@ -553,16 +586,16 @@ function filtra3(opc3) {
         let var_qtd = readlineSync.question('Quantidade: ');
         let var_total = readlineSync.question('Total: ');
 
-
+        const fila2 = Fila()
         addFila(var_codigo, var_nome, var_prod, var_qtd, var_total)
         console.log("[Adicionado com sucesso!]")
 
 
-    } else if (opc2 == 3) {//Remover
+    } else if (opc3 == 3) {//Remover
         
-        remove_fila()
+        removeFila()
 
-        console.log("[Removido com sucesso!")
+        console.log("[Removido com sucesso!]")
 
 
     }  else {

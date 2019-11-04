@@ -85,6 +85,15 @@ for (let i = 0; i < Estoque.length; i++) {
     list.add(Estoque2[i])
 }
 
+function aux_remo(codigo_produto){
+
+    let node = list.RetornaValor(codigo_produto)
+    list.remove(node)
+    let aux_de_remocao = node.value
+    remover(aux_de_remocao)
+
+
+}
 //let node = list.RetornaValor("C")
 //list.remove(node)
 //Exibe_produto(node.value)
@@ -134,6 +143,8 @@ function remover(aux_de_remocao) {
     var wb_export = xlsx.utils.book_new()
     xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
     xlsx.writeFile(wb_export, './Estoque.xlsx')
+
+    console.log("[Removido com sucesso!]")
 }
 /************************************************************************************************************/
 const Pilha = () => {//Verificador
@@ -259,6 +270,8 @@ function filtra(opc) {
     } else if (opc == 3) {//Remover
 
 
+        let codigo_produto_remover = readlineSync.question('Digite o codigo do produto que deseja remover: ');   
+        aux_remo(codigo_produto_remover)
 
     }else if( opc == 4){
 

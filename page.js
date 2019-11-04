@@ -157,8 +157,8 @@ var arrayEstoque = xlsx.utils.sheet_to_json(aux, { header: ["Codigo", "Nome", "S
 for (i = 1; i < arrayEstoque.length; i++) {
     let push = arrayEstoque[i];
     let push2 = arrayEstoque[i].CodigoP
-    Clientes.push(push)// Estoque Original
-    Clientes2.push(push2) // Estoque Aux Number
+    Clientes.push(push)
+    Clientes2.push(push2) 
 }
 
 function LDDE() {
@@ -286,29 +286,75 @@ function removerCli(aux_de_remocao) {
 /************************************************************************************************************** */
 
 
-const Pilha = () => {//Verificador
-    const data = []
+var Pilha = []
+var Pilha2 = []
+
+
+var nome = './Pilha.xlsx'
+var fr = xlsx.readFile(nome);
+var aux = fr.Sheets['Plan1'];
+var range = xlsx.utils.decode_range(aux['!ref']);
+range.s.r = 0;
+aux['!ref'] = xlsx.utils.encode_range(range);
+var arrayPilha = xlsx.utils.sheet_to_json(aux, { header: ["Quantidade"], defval: true });
+
+for (i = 1; i < arrayPilha.length; i++) {
+    let push = arrayPilha[i];
+    let push2 = arrayPilha[i].Quantidade
+    Pilha.push(push)
+    Pilha2.push(push2) 
+}
+
+const PilhaMain = () => {//Verificador
+  
     let topo = -1
     const push = (value) => {
         topo++
-        data[topo] = value
+        Pilha[topo] = value
     }
     const pop = () => {
         if (topo < 0) {
             return false
         } else {
-            const itemRe = data[topo]
+            const itemRe = Pilha[topo]
             data.splice(topo, 1)
             topo--
             return itemRe
         }
     }
-    const print = () => console.log(data)
+    const print = () => console.log(Pilha)
     return {
         push, pop, print
     }
 }
-const stack = Pilha()
+const stack = PilhaMain()
+
+function addPilha(var_qtd) {
+
+    var PilhaPilha = {
+        Quantidade: var_qtd
+    }
+
+    stack.push(PilhaPilha)
+    console.log(Pilha.length)
+
+    Pilha.push(PilhaPilha)
+    var ws_export = xlsx.utils.json_to_sheet(Pilha)
+    var wb_export = xlsx.utils.book_new()
+    xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
+    xlsx.writeFile(wb_export, './Pilha.xlsx')
+
+}
+function remPilha() {
+    
+    stack.pop()
+
+    var ws_export = xlsx.utils.json_to_sheet(Pilha)
+    var wb_export = xlsx.utils.book_new()
+    xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
+    xlsx.writeFile(wb_export, './Pilha.xlsx')
+
+}
 
 //stack.push(1)
 //stack.push(2)
@@ -321,7 +367,7 @@ const stack = Pilha()
 
 var Vendas = []
 var Vendas2 = []
-var Vendas3 = []
+
 
 var nome = './Vendas.xlsx'
 var fr = xlsx.readFile(nome);
@@ -334,8 +380,8 @@ var arrayVendas = xlsx.utils.sheet_to_json(aux, { header: ["Codigo", "Nome", "Pr
 for (i = 1; i < arrayVendas.length; i++) {
     let push = arrayVendas[i];
     let push2 = arrayVendas[i].Codigo
-    Vendas.push(push)// Estoque Original
-    Vendas2.push(push2) // Estoque Aux Number
+    Vendas.push(push)
+    Vendas2.push(push2) 
 }
 
 console.log(Vendas)
@@ -378,10 +424,10 @@ function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
         Total: var_total
 
     }
-    
+
     fila2.add(FilaFila)
     fila2.print()
- 
+
     Vendas.push(FilaFila)
     var ws_export = xlsx.utils.json_to_sheet(Vendas)
     var wb_export = xlsx.utils.book_new()
@@ -390,7 +436,7 @@ function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
 
 
 }
-function removeFila(){
+function removeFila() {
     fila2.remove()
     var ws_export = xlsx.utils.json_to_sheet(Vendas)
     var wb_export = xlsx.utils.book_new()
@@ -473,7 +519,7 @@ function filtra(opc) {
         console.log("1 - Vendas - Exibir")
         console.log("2 - Vendas - Adicionar")
         console.log("3 - Vendas - Remover")
-      
+
 
         let opc3 = readlineSync.question('Digite: ');
 
@@ -482,7 +528,11 @@ function filtra(opc) {
 
     } else if (opc == 4) {//Entregas   
 
-        console.log("[Desculpe mas esta perte não esta disponivél no momento]")
+        console.log("1 - Entregas - Exibir")
+        console.log("2 - Entregas - Adicionar")
+        console.log("3 - Entregas - Remover")
+        let opc4 = readlineSync.question('Digite: ');
+        filtra4(opc4)
 
     } else {
         console.log("Opcao Invalida!!!")
@@ -574,9 +624,8 @@ function filtra3(opc3) {
 
     if (opc3 == 1) {//Exibir Vendas
 
+       
         fila2.print()
-
-
 
     } else if (opc3 == 2) {//Adicionar
 
@@ -590,15 +639,55 @@ function filtra3(opc3) {
         addFila(var_codigo, var_nome, var_prod, var_qtd, var_total)
         console.log("[Adicionado com sucesso!]")
 
+      
+       
+
 
     } else if (opc3 == 3) {//Remover
+
+      
         
         removeFila()
 
         console.log("[Removido com sucesso!]")
 
+       
 
-    }  else {
+
+    } else {
+        console.log("Opcao Invalida!!!")
+    }
+
+
+}
+
+function filtra4(opc4) {
+
+    if (opc4 == 1) {//Exibir Vendas
+
+        
+        console.log(Pilha.length + " pendente" )
+
+
+
+    } else if (opc4 == 2) {//Adicionar
+
+        let var_codigo = readlineSync.question('Digite um coidgo para a  Entrega: ');
+     
+        addPilha(var_codigo)
+        
+      
+        console.log("[Adicionado com sucesso!]")
+
+
+    } else if (opc4 == 3) {//Remover
+
+        remPilha()
+
+        console.log("[Removido com sucesso!]")
+
+
+    } else {
         console.log("Opcao Invalida!!!")
     }
 

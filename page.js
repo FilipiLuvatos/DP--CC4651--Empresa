@@ -349,7 +349,7 @@ const fila2 = Fila()
 //fila2.remove()
 
 
-function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
+/*function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
 
     var FilaFila = {
         Codigo: var_codigo,
@@ -363,7 +363,7 @@ function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
 
     console.log("[Adicionado com Sucesso]")
 
-}
+}*/
 
 
 
@@ -437,6 +437,11 @@ function filtra(opc) {
 
     } else if (opc == 3) {//Vendas       
 
+        console.log("1 - Vendas - Exibir")
+        console.log("2 - Vendas - Adicionar")
+        console.log("3 - Vendas - Remover")
+      
+
         let opc3 = readlineSync.question('Digite: ');
 
         filtra3(opc3)
@@ -449,10 +454,6 @@ function filtra(opc) {
     } else {
         console.log("Opcao Invalida!!!")
     }
-
-
-
-
 
 }
 
@@ -558,22 +559,13 @@ function filtra3(opc3) {
 
 
     } else if (opc2 == 3) {//Remover
-
-
-
         
         remove_fila()
+
         console.log("[Removido com sucesso!")
 
 
-    } else if (opc2 == 4) {
-
-        let codigo_cliente_buscar = readlineSync.question('Digite o codigo do produto que deseja Buscar: ');
-        Exibe_Cli(codigo_cliente_buscar)
-
-
-
-    } else {
+    }  else {
         console.log("Opcao Invalida!!!")
     }
 

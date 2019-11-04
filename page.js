@@ -237,14 +237,14 @@ function aux_remo_cli(codigo_produto) {
 
 function Exibe_Cli(exibe) {
     let i = 0
-    let produto_encontrado
+    let cliente_encontrado = 0
     for (let i = 0; i < Clientes.length; i++) {
         if (Clientes2[i] == exibe) {
-            produto_encontrado = i
+            cliente_encontrado = i
 
         }
     }
-    console.log(Clientes[produto_encontrado])
+    console.log(Clientes[cliente_encontrado])
 }
 function moreCli(var_codigo, var_nome, var_sob, var_idade, var_sexo, var_end, var_number, var_city) {//adiciona
     var adicionando = {
@@ -284,6 +284,8 @@ function removerCli(aux_de_remocao) {
 }
 
 /************************************************************************************************************** */
+
+
 const Pilha = () => {//Verificador
     const data = []
     let topo = -1
@@ -307,12 +309,17 @@ const Pilha = () => {//Verificador
     }
 }
 const stack = Pilha()
+
 //stack.push(1)
 //stack.push(2)
 //stack.push(3)
 //stack.pop()
 //stack.print()
+
+
 /************************************************************************************************************/
+
+
 const Fila = () => {//Pedidos
     const data = []
     const add = (value) => {
@@ -340,7 +347,26 @@ const fila2 = Fila()
 //fila2.add(4)
 //fila2.print()
 //fila2.remove()
-//fila2.print()
+
+
+function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
+
+    var FilaFila = {
+        Codigo: var_codigo,
+        Nome: var_nome,
+        Produto: var_prod,
+        Quantidade: var_qtd,
+        Total: var_total
+
+    }
+    fila2.add(FilaFila)
+
+    console.log("[Adicionado com Sucesso]")
+
+}
+
+
+
 /************************************************************************************************************/
 const arvore = {}//Clientes
 function insert(tree, value) {
@@ -406,24 +432,26 @@ function filtra(opc) {
         console.log("4 - Clientes - Buscar Cliente")
 
         let opc2 = readlineSync.question('Digite: ');
- 
+
         filtra2(opc2)
 
     } else if (opc == 3) {//Vendas       
 
-        // filtra3(opc3)
+        let opc3 = readlineSync.question('Digite: ');
+
+        filtra3(opc3)
 
 
     } else if (opc == 4) {//Entregas   
 
-        // filtra4(opc4)
+        console.log("[Desculpe mas esta perte não esta disponivél no momento]")
 
     } else {
         console.log("Opcao Invalida!!!")
     }
 
 
- 
+
 
 
 }
@@ -472,7 +500,7 @@ function filtra2(opc2) {//Clientes
 
 
     } else if (opc2 == 2) {//Adicionar
-        
+
         let var_codigo = readlineSync.question('Digite um coidgo para o Cliente: ');
         let var_nome = readlineSync.question('Digite o nome do CLiente: ');
         let var_sob = readlineSync.question('Digite o sobrenome do Cliente: ');
@@ -492,6 +520,50 @@ function filtra2(opc2) {//Clientes
 
         let codigo_cliente_remover = readlineSync.question('Digite o codigo do cliente que deseja remover: ');
         aux_remo_cli(codigo_cliente_remover)
+
+
+    } else if (opc2 == 4) {
+
+        let codigo_cliente_buscar = readlineSync.question('Digite o codigo do produto que deseja Buscar: ');
+        Exibe_Cli(codigo_cliente_buscar)
+
+
+
+    } else {
+        console.log("Opcao Invalida!!!")
+    }
+
+
+}
+
+function filtra3(opc3) {
+
+    if (opc2 == 1) {//Exibir Vendas
+
+        fila2.print()
+
+
+
+    } else if (opc2 == 2) {//Adicionar
+
+        let var_codigo = readlineSync.question('Digite um coidgo para a  Venda: ');
+        let var_nome = readlineSync.question('Digite o nome do CLiente: ');
+        let var_prod = readlineSync.question('Digite o produto: ');
+        let var_qtd = readlineSync.question('Quantidade: ');
+        let var_total = readlineSync.question('Total: ');
+
+
+        addFila(var_codigo, var_nome, var_prod, var_qtd, var_total)
+        console.log("[Adicionado com sucesso!]")
+
+
+    } else if (opc2 == 3) {//Remover
+
+
+
+        
+        remove_fila()
+        console.log("[Removido com sucesso!")
 
 
     } else if (opc2 == 4) {

@@ -1,4 +1,4 @@
-
+/**********************************************ESTOQUE === LDE ****************************************************************** */
 const xlsx = require('xlsx')
 const fs = require('fs')
 var readlineSync = require('readline-sync');
@@ -140,7 +140,7 @@ function remover(aux_de_remocao) {
 
     console.log("[Removido com sucesso!]")
 }
-/************************************************************************************************************/
+/************************************************ CLIENTES === LDDE ************************************************************/
 
 var Clientes = []
 var Clientes2 = []
@@ -283,7 +283,7 @@ function removerCli(aux_de_remocao) {
     console.log("[Removido com sucesso!]")
 }
 
-/************************************************************************************************************** */
+/***********************************************  ENTREGAS === PILHA *************************************************************** */
 
 
 var Pilha = []
@@ -348,7 +348,7 @@ function addPilha(var_qtd) {
 function remPilha() {
     
     stack.pop()
-
+    Pilha.pop()
     var ws_export = xlsx.utils.json_to_sheet(Pilha)
     var wb_export = xlsx.utils.book_new()
     xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
@@ -356,14 +356,7 @@ function remPilha() {
 
 }
 
-//stack.push(1)
-//stack.push(2)
-//stack.push(3)
-//stack.pop()
-//stack.print()
-
-
-/************************************************************************************************************/
+/******************************************************  VENDAS === FILA  ******************************************************/
 
 var Vendas = []
 var Vendas2 = []
@@ -384,7 +377,7 @@ for (i = 1; i < arrayVendas.length; i++) {
     Vendas2.push(push2) 
 }
 
-console.log(Vendas)
+
 const Fila = () => {//Pedidos
 
     const add = (value) => {
@@ -407,11 +400,6 @@ const Fila = () => {//Pedidos
 }
 
 var fila2 = Fila()
-//fila2.add(2)
-//fila2.add(3)
-//fila2.add(4)
-//fila2.print()
-//fila2.remove()
 
 
 function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
@@ -428,7 +416,7 @@ function addFila(var_codigo, var_nome, var_prod, var_qtd, var_total) {
     fila2.add(FilaFila)
     fila2.print()
 
-    Vendas.push(FilaFila)
+   
     var ws_export = xlsx.utils.json_to_sheet(Vendas)
     var wb_export = xlsx.utils.book_new()
     xlsx.utils.book_append_sheet(wb_export, ws_export, 'Plan1')
@@ -446,8 +434,8 @@ function removeFila() {
 
 
 
-/************************************************************************************************************/
-const arvore = {}//Clientes
+/*****************************************ARVORE === NÃO ULTILIZADA NO PROGRAMA*******************************************************************/
+const arvore = {}
 function insert(tree, value) {
     if (tree.value) {
         if (value > tree.value) {
@@ -475,7 +463,7 @@ function search(tree, value) {
     return search(tree.rigth, value)
 }
 //console.log(search( arvore, 14))
-/************************************************************************************************************/
+/******************************************* MENU *****************************************************************/
 
 
 console.log("Menu")
@@ -635,7 +623,7 @@ function filtra3(opc3) {
         let var_qtd = readlineSync.question('Quantidade: ');
         let var_total = readlineSync.question('Total: ');
 
-        const fila2 = Fila()
+        
         addFila(var_codigo, var_nome, var_prod, var_qtd, var_total)
         console.log("[Adicionado com sucesso!]")
 

@@ -1,0 +1,52 @@
+
+Boa Tarde Professor
+
+Vem aqui fazer algumas observações do meu programa antes de você executa=lo
+
+Primeiro: Eu estava fazendo em JS com um interface HTML, mas tive problemas 
+no ultimo dia antes de entregar com a forma de armazenamento que ultilizei no programa,
+logo o programa é em JS mas sem interface HTML mas sim no console.
+
+
+
+Segundo: Se possivél rodar no Visual Code Studio e instalar alguns pacotes antes de rodar
+como:
+
+	require('xlsx')
+	require('fs')
+	require('readline-sync')
+
+
+Se tiver dando algum erro de modulo é pq eu esqueci de mencionar aqui qual módulo instalar,
+me desculpe, mas muito provavel que todos os módulos tenham sidos upados no gitHub junto com
+o projeto
+
+
+Terceiro: Este programa possue 5 Estruturas de Dados, das quais 4 são ultilizadas e a quinta (
+arvore binaria) não foi ultiliza-la por causa do problema com o HTML, mas são eles:
+
+	LDE = ESTOQUE
+	LDDE = CLIENTES
+	PILHA = ENTREGAS
+	FILA = VENDAS	
+
+	
+Quarto: As quatro opçoes (Estoque, Clientes, Entregas, Vendas) ja vem com algumas planilhas e com alguns 
+dados cadastrados e as mesma SÃO necessarias para o programa funcinar
+
+Quinta: Qualquer ação como: Adicionar ou Remover, altera estas Planilhas
+
+Sexta: Qualquer duvida, esclarecimento, observação ou crítica por favor entre em contado comigo
+
+lipi-valim@hotmail.com
+
+Setima e ultima: Gostaria de ter feito em Html como mencionei, mas por uma falta de atenção,
+os 'riqueire' não são compativéis com html e infelismente só descobri isso no ultimo dia quando
+estava finalizando o programa e como as estruturas ja estava 90% pronta tive que optar pelo console 
+devido ao praso curto.
+
+
+
+Obrigado pela atenção
+
+Filipi

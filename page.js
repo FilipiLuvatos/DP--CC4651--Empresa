@@ -1,6 +1,8 @@
 
 const xlsx = require('xlsx')
 const fs = require('fs')
+var readlineSync = require('readline-sync');
+
 var Estoque = []
 var Estoque2 = []
 var Estoque3 = []
@@ -102,7 +104,7 @@ function Exibe_produto(exibe) {
     }
     console.log(Estoque[produto_encontrado])
 }
-function more(var_codigo, var_produto, var_qtd, var_tamanho) {//adiciona
+function more(var_codigo, var_produto, var_qtd,var_preco, var_tamanho) {//adiciona
     var adicionando = {
         CodigoP: var_codigo,
         Produto: var_produto,
@@ -229,38 +231,38 @@ console.log("Digite as Opcoes desejadas")
 console.log("1 - Estoque - Exibir")
 console.log("2 - Estoque - Adicionar")
 console.log("3 - Estoque - Remover")
+console.log("4 - Estoque - Buscar Produto")
 
 
-const readline = require('readline');
+let opc = readlineSync.question('Digite: ');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-rl.question('Digite: ', (answer) => {
-    // TODO: Log the answer in a database
-
-    filtra(answer)
+filtra(opc)
 
 
+function filtra(opc) {
 
-    rl.close();
-});
-
-function filtra(answer) {
-
-    if (answer == 1) {//Exibir
+    if (opc == 1) {//Exibir
 
         console.log(Estoque)
 
-    } else if (answer == 2) {//Adicionar
+    } else if (opc == 2) {//Adicionar
 
-        
+        let var_codigo = readlineSync.question('Digite o codigo para o produto: ');
+        let var_produto = readlineSync.question('Digite o nome do produto: ');
+        let var_qtd = readlineSync.question('Digite a quantidade do produto: ');
+        let var_preco = readlineSync.question('Digite o preco do produto: ');
+        let var_tamanho = readlineSync.question('Digite o tamanho do produto: ');    
+        console.log("[Produto adicionado com sucesso!]")  
 
-    } else if (answer == 3) {//Remover
+        more(var_codigo, var_produto, var_qtd,var_preco, var_tamanho)
+
+    } else if (opc == 3) {//Remover
 
 
 
+    }else if( opc == 4){
+
+    }else{
+        console.log("Opcao Invalida!!!")
     }
 }

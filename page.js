@@ -275,6 +275,9 @@ function filtra(opc) {
 
     }else if( opc == 4){
 
+        let codigo_produto_buscar = readlineSync.question('Digite o codigo do produto que deseja Buscar: ');   
+        Exibe_produto(codigo_produto_buscar)
+
     }else{
         console.log("Opcao Invalida!!!")
     }

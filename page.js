@@ -1,34 +1,10 @@
-console.log("Menu")
-console.log("Digite as Opcoes desejadas")
-
-console.log("1 - Estoque - Exibir")
-console.log("2 - Estoque - Adicionar")
-console.log("3 - Estoque - Remover")
-
-
-const readline = require('readline');
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-rl.question('What do you think of Node.js? ', (answer) => {
-  // TODO: Log the answer in a database
-  console.log(`Thank you for your valuable feedback: ${answer}`);
-
-  rl.close();
-});
-
-
-
-
 
 const xlsx = require('xlsx')
 const fs = require('fs')
 var Estoque = []
 var Estoque2 = []
 var Estoque3 = []
+
 var nome = './Estoque.xlsx'
 var fr = xlsx.readFile(nome);
 var aux = fr.Sheets['Plan1'];
@@ -36,25 +12,26 @@ var range = xlsx.utils.decode_range(aux['!ref']);
 range.s.r = 0;
 aux['!ref'] = xlsx.utils.encode_range(range);
 var arrayEstoque = xlsx.utils.sheet_to_json(aux, { header: ["CodigoP", "Produto", "Qtd", "Preco", "Tamanho"], defval: true });
+
 for (i = 1; i < arrayEstoque.length; i++) {
     let push = arrayEstoque[i];
     let push2 = arrayEstoque[i].CodigoP
     Estoque.push(push)// Estoque Original
     Estoque2.push(push2) // Estoque Aux Number
 }
-//console.log(Estoque)
-function LED() {//Estoque
-    let head = null//Primeiro nó
-    let tail = null//Fim da Lista
+
+function LED() {
+    let head = null
+    let tail = null
     let length = 0
-    const Node = (value) => {//nó
+    const Node = (value) => {
         return {
             value,
             next: null
         }
     }
     const add = (value) => {
-        if (!head) {//Se o primeiro nó não for verdadeiro, vamos passar 
+        if (!head) {
             head = Node(value)
             tail = head
             length++
@@ -105,19 +82,15 @@ const list = LED()
 for (let i = 0; i < Estoque.length; i++) {
     list.add(Estoque2[i])
 }
+
+//let node = list.RetornaValor("C")
+//list.remove(node)
+//Exibe_produto(node.value)
 //list.print()
-let node = list.RetornaValor("C")
-list.remove(node)
-Exibe_produto(node.value)
-//list.print()
-let aux_de_remocao = node.value
-remover(aux_de_remocao)
-//let aux_de_remocao2 = Estoque2.search(aux_de_remocao)
-var_codigo = "Z"//inner html
-var_produto = "Moto"
-var_qtd = "100"
-var_preco = "10,00"
-var_tamanho = " MS"
+//let aux_de_remocao = node.value
+//remover(aux_de_remocao)
+
+
 function Exibe_produto(exibe) {
     let i = 0
     let produto_encontrado
@@ -129,7 +102,7 @@ function Exibe_produto(exibe) {
     }
     console.log(Estoque[produto_encontrado])
 }
-function more() {//adiciona
+function more(var_codigo, var_produto, var_qtd, var_tamanho) {//adiciona
     var adicionando = {
         CodigoP: var_codigo,
         Produto: var_produto,
@@ -236,7 +209,7 @@ function insert(tree, value) {
 insert(arvore, 10)
 insert(arvore, 11)
 insert(arvore, 9)
-console.log(arvore)
+//console.log(arvore)
 function search(tree, value) {
     if (!tree.value || tree.value == value) {
         return tree.value
@@ -248,8 +221,46 @@ function search(tree, value) {
 }
 //console.log(search( arvore, 14))
 /************************************************************************************************************/
-function Verificar() {// Pode se tornar "Busca"
-    aux_ver = document.getElementById('verText').value
-    document.getElementById('imprime').value = aux_ver;
-}
 
+
+console.log("Menu")
+console.log("Digite as Opcoes desejadas")
+
+console.log("1 - Estoque - Exibir")
+console.log("2 - Estoque - Adicionar")
+console.log("3 - Estoque - Remover")
+
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question('Digite: ', (answer) => {
+    // TODO: Log the answer in a database
+
+    filtra(answer)
+
+
+
+    rl.close();
+});
+
+function filtra(answer) {
+
+    if (answer == 1) {//Exibir
+
+        console.log(Estoque)
+
+    } else if (answer == 2) {//Adicionar
+
+        
+
+    } else if (answer == 3) {//Remover
+
+
+
+    }
+}
